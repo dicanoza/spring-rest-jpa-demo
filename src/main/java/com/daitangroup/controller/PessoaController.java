@@ -29,6 +29,12 @@ public class PessoaController {
 	@Autowired
 	private PessoaService pessoaService;
 
+	/**
+	 *
+	 * @param nome
+	 *            used to filter {@link Pessoa#getNome()}
+	 * @return List of {@link Pessoa}
+	 */
 	@RequestMapping(path = "", method = GET)
 	public ResponseEntity<List<Pessoa>> getPessoasByName(@RequestParam(value = "nome", required = false) String nome) {
 		if (nome == null || nome.isEmpty()) {
@@ -37,6 +43,12 @@ public class PessoaController {
 		return ok(pessoaService.findAllByNome(nome));
 	}
 
+	/**
+	 *
+	 * @param id
+	 *            of the {@link Pessoa} entity to be find
+	 * @return an {@link Pessoa} or NotFound(404)
+	 */
 	@RequestMapping(path = "/{id}", method = GET)
 	public ResponseEntity<Pessoa> getPessoa(@PathVariable("id") long id) {
 		Pessoa pessoa = pessoaService.findPessoa(id);
@@ -47,6 +59,12 @@ public class PessoaController {
 		return ok(pessoa);
 	}
 
+	/**
+	 *
+	 * @param pessoa
+	 *            Entity to be inserted into the database
+	 * @return Headers with Created 201 if success
+	 */
 	@RequestMapping(method = POST)
 	public ResponseEntity<Void> createPessoa(@RequestBody(required = true) Pessoa pessoa) {
 		pessoa = pessoaService.createPessoa(pessoa);
@@ -54,6 +72,12 @@ public class PessoaController {
 		return created(location).build();
 	}
 
+	/**
+	 *
+	 * @param id
+	 *            of the {@link Person} to be deleted
+	 * @return NoCotent 204 if success
+	 */
 	@RequestMapping(value = "/{id}", method = DELETE)
 	public ResponseEntity<Void> deletePessoa(@PathVariable("id") Long id) {
 		pessoaService.deletePessoa(id);
