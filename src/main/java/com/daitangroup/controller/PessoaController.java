@@ -2,6 +2,7 @@ package com.daitangroup.controller;
 
 import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.noContent;
+import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -53,7 +54,7 @@ public class PessoaController {
 	public ResponseEntity<Pessoa> getPessoa(@PathVariable("id") long id) {
 		Pessoa pessoa = pessoaService.findPessoa(id);
 		if (pessoa == null) {
-			return ResponseEntity.notFound().build();
+			return notFound().build();
 
 		}
 		return ok(pessoa);
